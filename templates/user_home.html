@@ -1,0 +1,44 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+<style>
+    .custom-navbar {
+        background-color: black; /* Black background */
+        height: 70px; /* Set your desired height */
+    }
+    .custom-navbar .navbar-brand h1 {
+        font-size: 1.5rem; /* Adjust font size if needed */
+    }
+    .custom-navbar .navbar-nav .nav-link {
+        color: white; /* White text for links */
+    }
+    .custom-navbar .navbar-nav .nav-link:hover {
+        color: #ddd; /* Light color on hover */
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg custom-navbar px-4 px-lg-5">
+  <a href="" class="navbar-brand p-0">
+    <h1 class="m-0" style="color: #ddd;"><i class="fas fa-heartbeat fw-normal"></i> Medical</h1>
+  </a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+    <span class="fa fa-bars"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <div class="navbar-nav ms-auto py-0">
+      <a href="{% url 'user_home' %}" class="nav-item nav-link">Home</a>
+      <a href="{% url 'user_profile' %}" class="nav-item nav-link">User Profile</a>
+      <a href="{% url 'uploadimage' %}" class="nav-item nav-link">Image Encryption</a>
+      <a href="{% url 'viewimages' %}" class="nav-item nav-link">View Images</a>
+      <a href="{% url 'user_logout' %}" class="nav-item nav-link">Logout</a>
+    </div>
+  </div>
+</nav>
+{% endblock %}
+
+{% block main %}
+
+{% endblock %}
+
+{% block noneed %}
+{% endblock %}

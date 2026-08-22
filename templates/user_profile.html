@@ -1,0 +1,92 @@
+{% extends 'user_home.html' %}
+
+{% block navbar %}
+<style>
+    .custom-navbar {
+        background-color: black; /* Black background */
+        height: 70px; /* Set your desired height */
+    }
+    .custom-navbar .navbar-brand h1 {
+        font-size: 1.5rem; /* Adjust font size if needed */
+    }
+    .custom-navbar .navbar-nav .nav-link {
+        color: white; /* White text for links */
+    }
+    .custom-navbar .navbar-nav .nav-link:hover {
+        color: #ddd; /* Light color on hover */
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg custom-navbar px-4 px-lg-5">
+  <a href="" class="navbar-brand p-0">
+    <h1 class="m-0"style="color: #ddd;"><i class="fas fa-heartbeat fw-normal"></i> Medical</h1>
+  </a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+    <span class="fa fa-bars"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <div class="navbar-nav ms-auto py-0">
+      <a href="{% url 'user_home' %}" class="nav-item nav-link">Home</a>
+      <a href="{% url 'user_profile' %}" class="nav-item nav-link">User Profile</a>
+      <a href="{% url 'medicalimagestore' %}" class="nav-item nav-link">Image Encryption</a>
+      <a href="{% url 'viewmedicalimages' %}" class="nav-item nav-link">View Images</a>
+      <a href="{% url 'user_logout' %}" class="nav-item nav-link">Logout</a>
+    </div>
+  </div>
+</nav>
+{% endblock %}
+
+{% block main %}
+<section style="background-color: #eee;">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center" style="
+          padding-top: 95px;
+      ">
+            <img src="{{ user.profile.url }}" class="rounded-circle img-fluid" style="width: 150px;" alt="Profile Image">
+            <h5 class="my-3">{{ user.name }}</h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th scope="row">Full Name</th>
+                  <td>{{ user.name }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Email</th>
+                  <td>{{ user.email }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Phone</th>
+                  <td>{{ user.mobile }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Address</th>
+                  <td>{{ user.address }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Created At</th>
+                  <td>{{ user.created_at }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

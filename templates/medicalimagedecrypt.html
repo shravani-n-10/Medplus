@@ -1,0 +1,130 @@
+{% extends 'user_home.html' %}
+
+{% block main %}
+   
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f3f3;
+    }
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: rgb(66, 111, 119);
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(73, 70, 70, 0.1);
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    label {
+        font-weight: bold;
+        color: #e9dede;
+    }
+    input[type="text"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+        transition: border-color 0.3s ease;
+    }
+    input[type="text"]:focus,
+    textarea:focus {
+        outline: none;
+        border-color: #007bff;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        padding: 10px 20px;
+        color: #ffffff;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+    h2 {
+        color: #e9dede;
+    }
+    .alert {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 5px;
+    }
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+    }
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+    .decrypted-image-container {
+        margin-top: 30px;
+        text-align: center;
+    }
+    .decrypted-image-container img {
+        max-width: 100%;
+        height: auto;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+    .download-btn {
+        margin-top: 15px;
+        background-color: #28a745;
+        border: none;
+        padding: 10px 20px;
+        color: #ffffff;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+    }
+    .download-btn:hover {
+        background-color: #218838;
+    }
+</style>
+
+<center>
+<div class="container mt-5">
+    <h2>Decrypt Medical Image</h2>
+    <form action="{% url 'MedicalImageDecrypt' medical_image.id %}" method="post">
+        {% csrf_token %}
+        
+        <!-- Display error message if present -->
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <!-- Display success message if present -->
+        {% if success %}
+        <div class="alert alert-success" role="alert">
+            {{ success }}
+        </div>
+        {% endif %}
+        
+        <div class="form-group">
+            <label for="encrypted_image">Encrypted Image:</label>
+            <textarea id="encrypted_image" name="encrypted_image" rows="5" readonly>{{ medical_image.encrypted_image }}</textarea>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Decrypt Image</button>
+    </form>
+    
+    <!-- Display decrypted image and download button if available -->
+    {% if decrypted_image %}
+    <div class="decrypted-image-container">
+        <a href="data:{{ decrypted_image_format }};base64,{{ decrypted_image }}" download="decrypted_image.{{ decrypted_image_extension }}" class="download-btn">Download Image</a>
+    </div>
+    {% endif %}
+</div>
+</center>
+
+{% endblock %}

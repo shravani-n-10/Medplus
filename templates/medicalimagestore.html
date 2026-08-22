@@ -1,0 +1,113 @@
+{% extends 'user_home.html' %}
+
+{% block main %}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f3f3;
+    }
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: rgb(66, 111, 119);
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(73, 70, 70, 0.1);
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    label {
+        font-weight: bold;
+        color: #e9dede;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="file"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+        transition: border-color 0.3s ease;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="file"]:focus,
+    textarea:focus {
+        outline: none;
+        border-color: #007bff;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        padding: 10px 20px;
+        color: #ffffff;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+    h2 {
+        color: #e9dede;
+    }
+    .alert {
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+    }
+</style>
+
+<center>
+<div class="container mt-5">
+    <h2>Upload Encrypted Medical Image</h2>
+    <form action="{% url 'uploadimage' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- Display error messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="imagetype">Image Type (e.g., MRI, X-Ray):</label>
+            <input type="text" id="imagetype" name="imgtype" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="image">Upload Image:</label>
+            <input type="file" id="image" name="image" accept=".jpg, .jpeg, .png" required>
+        </div>
+    
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+</center>
+
+{% endblock %}
